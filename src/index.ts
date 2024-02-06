@@ -43,6 +43,19 @@ app.get("/transports/:id", (req: any, res: any) => {
   res.send(transport);
 });
 
+app.put("/transports/:id", (req: any, res: any) => {
+  let transport = transports.find(item => item.id === +req.params.id);
+
+  if(transport) {
+    transport.name = req.body.title;
+    res.send(transport);
+  } else {
+    res.send(404);
+  }
+
+  res.send(transport);
+});
+
 app.delete("/transports/:id", (req: any, res: any) => {
   for (let i = 0; i < transports.length; i++) {
     if (transports[i].id == +req.params.id) {
