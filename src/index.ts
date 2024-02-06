@@ -9,9 +9,15 @@ app.get("/transports", (req: any, res: any) => {
 });
 
 app.get("/transports/:idCar", (req: any, res: any) => {
-  let request = transports.find(item => item.id === +req.params.idCar);
+  let transport = transports.find(item => item.id === +req.params.idCar);
 
-  res.send(request);
+  if(transport) {
+    res.send(transport);
+  } else {
+    res.send(404);
+  }
+
+  res.send(transport);
 });
 
 app.listen(port, () => {
