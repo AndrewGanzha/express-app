@@ -26,6 +26,18 @@ app.get("/transports/:id", (req: any, res: any) => {
   res.send(transport);
 });
 
+app.delete("/transports/:id", (req: any, res: any) => {
+  for (let i = 0; i < transports.length; i++) {
+    if (transports[i].id == +req.params.id) {
+      transports.splice(i, 1);
+      res.send(204)
+      return;
+    }
+  }
+
+  res.send(404);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
