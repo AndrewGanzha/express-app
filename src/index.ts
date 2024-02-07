@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import {randomUUID} from "crypto";
 
 export const app = express();
 const port = process.env.PORT || 3000;
@@ -22,8 +21,13 @@ app.get("/transports", (req: any, res: any) => {
 });
 
 app.post("/transports", (req: any, res: any) => {
-  const newTransport = { id: +(new Date()),  name: req.body.title.toString()};
+  if(!req.body.name) {
+    res.send(400);
+    return;
+  }
 
+  const newTransport = { id: +(new Date()),  name: req.body.name.toString()};
+  console.log(newTransport);
   transports.push(newTransport);
 
 

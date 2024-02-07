@@ -17,4 +17,30 @@ describe('/transports', () => {
             .get('/transports/333')
             .expect(404)
     })
+
+    it('shouldnt create transport with incorrect input data', async () => {
+        await request(app)
+            .post('/transports')
+            .send({name: ''})
+            .expect(400)
+
+        await request(app)
+            .get('/transports')
+            .expect(200, [])
+    })
+
+    it('should create transport with correct input data', async () => {
+        const createResponse = await request(app)
+            .post('/transports')
+            .send({name: 'Площадь Ленина'})
+            .expect(201)
+
+        const createdTransport = createResponse.body;
+        console.log(createdTransport);
+
+        expect(createdTransport).toEqual({
+            id: expect.any(Number),
+            name: 'Площадь Ленина'
+        })
+    })
 })
