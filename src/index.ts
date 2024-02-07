@@ -2,10 +2,10 @@ import express from "express";
 import bodyParser from "body-parser";
 import {randomUUID} from "crypto";
 
-const app = express();
+export const app = express();
 const port = process.env.PORT || 3000;
 
-const transports = [{id: 0, name: 'Фрунзенская'}, {id: 1, name: 'Костомароваская'}]
+let transports = [{id: 0, name: 'Фрунзенская'}, {id: 1, name: 'Костомароваская'}]
 
 const parserMiddleware = bodyParser();
 
@@ -67,6 +67,11 @@ app.delete("/transports/:id", (req: any, res: any) => {
 
   res.send(404);
 });
+
+app.delete('/__test__/data', (req, res) => {
+  transports = [];
+  res.sendStatus(204);
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
