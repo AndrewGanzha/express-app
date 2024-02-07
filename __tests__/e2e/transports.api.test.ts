@@ -36,11 +36,14 @@ describe('/transports', () => {
             .expect(201)
 
         const createdTransport = createResponse.body;
-        console.log(createdTransport);
 
         expect(createdTransport).toEqual({
             id: expect.any(Number),
             name: 'Площадь Ленина'
         })
+
+        await request(app)
+            .get('/transports')
+            .expect(200, [createdTransport])
     })
 })

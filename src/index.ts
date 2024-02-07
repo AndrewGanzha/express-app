@@ -27,7 +27,6 @@ app.post("/transports", (req: any, res: any) => {
   }
 
   const newTransport = { id: +(new Date()),  name: req.body.name.toString()};
-  console.log(newTransport);
   transports.push(newTransport);
 
 
